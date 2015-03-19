@@ -2,9 +2,13 @@
 require 'rubygems'
 require 'csv'
 require 'time'
+require 'date'
+
+now = Date.today
+monday = now - (now.wday - 1) % 7
 
 dateLabel = Time.now.strftime("%Y%m%d")
-captureTime = Time.now.utc.iso8601
+captureTime = monday.strftime('%Y-%m-%d') + "T00:00:00Z"
 constant1 = ENV["CHEVENING_CONSTANT1"] || "week"
 appYear = ENV["CHEVENING_APP_YEAR"] || "2016"
 constant2 = ENV["CHEVENING_CONSTANT2"] || "digital"
