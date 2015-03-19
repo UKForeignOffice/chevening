@@ -20,7 +20,7 @@ columnHeader4 = ENV["CHEVENING_OUTPUT_COLUMN4"] || "description"
 columnHeader5 = ENV["CHEVENING_OUTPUT_COLUMN5"] || "channel"
 columnHeader6 = ENV["CHEVENING_OUTPUT_COLUMN6"] || "cumulative_total"
 columnHeader7 = ENV["CHEVENING_OUTPUT_COLUMN7"] || "count"
-columnHeader8 = ENV["CHEVENING_OUTPUT_COLUMN8"] || "id"
+columnHeader8 = ENV["CHEVENING_OUTPUT_COLUMN8"] || "_id"
 
 begin
 #write to capture file, open and append

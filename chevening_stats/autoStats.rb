@@ -7,6 +7,9 @@ require 'time'
 
 #Variables and textfile connection paths
 
+now = Date.today
+monday = now - (now.wday - 1) % 7
+
 constant1 = ENV["CHEVENING_CONSTANT1"] || "week"
 appYear = ENV["CHEVENING_APP_YEAR"] || "2016"
 constant2 = ENV["CHEVENING_CONSTANT2"] || "digital"
@@ -25,7 +28,7 @@ columnHeader4 = ENV["CHEVENING_OUTPUT_COLUMN4"] || "Description"
 columnHeader5 = ENV["CHEVENING_OUTPUT_COLUMN5"] || "Constant 2"
 columnHeader6 = ENV["CHEVENING_OUTPUT_COLUMN6"] || "Cumulative Stats"
 
-captureTime = Time.now.utc.iso8601
+captureTime = monday.strftime('%Y-%m-%d') + "T00:00:00Z"
 keystats = Array.new
 cumulativeValues = Array.new
 preKeyStats = Array.new
