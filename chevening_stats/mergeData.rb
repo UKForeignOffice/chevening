@@ -15,18 +15,27 @@ ineligible_stats = []
 withdrawn_stats = []
 pass_prescreen_stats = []
 fail_prescreen_stats = []
+invited_to_interview_stats = []
+interview_complete_stats = []
+recommended_for_scholarship_stats = []
 
 data = File.open('autoCapture.csv')
 data2= File.open('autoCapture.csv')
 data3 = File.open('autoCapture.csv')
 data4 = File.open('autoCapture.csv')
 data5 = File.open('autoCapture.csv')
+data6 = File.open('autoCapture.csv')
+data7 = File.open('autoCapture.csv')
+data8 = File.open('autoCapture.csv')
 
-stat1 = ENV["CHEVENING_STAT1"] || "Passed Pre-Screen Questions"
-stat2 = ENV["CHEVENING_STAT2"] || "failed pre-screen questions"
-stat3 = ENV["CHEVENING_STAT3"] || "eligible applications"
-stat4 = ENV["CHEVENING_STAT4"] || "ineligible applications"
-stat5 = ENV["CHEVENING_STAT5"] || "withdrawn applications"
+stat1 = ENV["CHEVENING_STAT1"] || "Passed pre-screen"
+stat2 = ENV["CHEVENING_STAT2"] || "Failed pre-screen"
+stat3 = ENV["CHEVENING_STAT3"] || "Eligible"
+stat4 = ENV["CHEVENING_STAT4"] || "Ineligible"
+stat5 = ENV["CHEVENING_STAT5"] || "Withdrawn"
+stat6 = ENV["CHEVENING_STAT5"] || "Invited to interview"
+stat7 = ENV["CHEVENING_STAT5"] || "Interview complete"
+stat8 = ENV["CHEVENING_STAT5"] || "Recommended for a scholarship"
 
 columnHeader4 = ENV["CHEVENING_OUTPUT_COLUMN4"] || "Description"
 columnHeader6 = ENV["CHEVENING_OUTPUT_COLUMN6"] || "Cumulative Stats"
@@ -37,6 +46,9 @@ CSV.foreach("configStats.csv") {|row| ineligible_stats << row[1]}
 CSV.foreach("configStats.csv") {|row| withdrawn_stats << row[2]}
 CSV.foreach("configStats.csv") {|row| pass_prescreen_stats << row[3]}
 CSV.foreach("configStats.csv") {|row| fail_prescreen_stats << row[4]}
+CSV.foreach("configStats.csv") {|row| invited_to_interview_stats << row[5]}
+CSV.foreach("configStats.csv") {|row| interview_complete_stats << row[6]}
+CSV.foreach("configStats.csv") {|row| recommended_for_scholarship_stats << row[7]}
 
 begin
 
@@ -82,6 +94,27 @@ begin
     end
   end
   fail_prescreen = fail_prescreen.map(&:to_i).inject(:+)
+  invited_to_interview = CSV.parse(data6, headers: :first_row).each_with_object([]) do |row, mergeData6|
+    if invited_to_interview_stats.include? row[columnHeader4]
+      mergeData6 << row[columnHeader6]
+
+    end
+  end
+  invited_to_interview = invited_to_interview.map(&:to_i).inject(:+)
+  interview_complete = CSV.parse(data7, headers: :first_row).each_with_object([]) do |row, mergeData7|
+    if interview_complete_stats.include? row[columnHeader4]
+      mergeData7 << row[columnHeader6]
+
+    end
+  end
+  interview_complete = interview_complete.map(&:to_i).inject(:+)
+  recommended_for_scholarship = CSV.parse(data8, headers: :first_row).each_with_object([]) do |row, mergeData8|
+    if recommended_for_scholarship_stats.include? row[columnHeader4]
+      mergeData8 << row[columnHeader6]
+
+    end
+  end
+  recommended_for_scholarship = recommended_for_scholarship.map(&:to_i).inject(:+)
   
 #append data rows to merge capture
 
@@ -92,6 +125,9 @@ begin
   mergeCapture.puts captureTime+","+constant1+","+appYear+","+stat3+","+constant2+","+eligible.to_i.to_s
   mergeCapture.puts captureTime+","+constant1+","+appYear+","+stat4+","+constant2+","+ineligible.to_i.to_s
   mergeCapture.puts captureTime+","+constant1+","+appYear+","+stat5+","+constant2+","+withdrawn.to_i.to_s
+  mergeCapture.puts captureTime+","+constant1+","+appYear+","+stat6+","+constant2+","+invited_to_interview.to_i.to_s
+  mergeCapture.puts captureTime+","+constant1+","+appYear+","+stat7+","+constant2+","+interview_complete.to_i.to_s
+  mergeCapture.puts captureTime+","+constant1+","+appYear+","+stat8+","+constant2+","+recommended_for_scholarship.to_i.to_s
 rescue
   archiveFile = 'archiveMergeCapture.csv'
 

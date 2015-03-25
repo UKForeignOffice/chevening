@@ -19,11 +19,14 @@ begin
     else
       begin
         newArchive =File.open('archiveMergeCapture.csv', 'a')
-        newArchive.puts captureTime+","+constant1+","+appYear+","+"Passed Pre-Screen Questions"+","+constant2+", 0"
-        newArchive.puts captureTime+","+constant1+","+appYear+","+"failed pre-screen questions"+","+constant2+", 0"
-        newArchive.puts captureTime+","+constant1+","+appYear+","+"eligible applications"+","+constant2+", 0"
-        newArchive.puts captureTime+","+constant1+","+appYear+","+"ineligible applications"+","+constant2+", 0"
-        newArchive.puts captureTime+","+constant1+","+appYear+","+"withdrawn applications"+","+constant2+", 0"
+        newArchive.puts captureTime+","+constant1+","+appYear+","+"Passed pre-screen"+","+constant2+", 0"
+        newArchive.puts captureTime+","+constant1+","+appYear+","+"Failed pre-screen"+","+constant2+", 0"
+        newArchive.puts captureTime+","+constant1+","+appYear+","+"Eligible"+","+constant2+", 0"
+        newArchive.puts captureTime+","+constant1+","+appYear+","+"Ineligible"+","+constant2+", 0"
+        newArchive.puts captureTime+","+constant1+","+appYear+","+"Withdrawn"+","+constant2+", 0"
+		newArchive.puts captureTime+","+constant1+","+appYear+","+"Invited to interview"+","+constant2+", 0"
+		newArchive.puts captureTime+","+constant1+","+appYear+","+"Interview complete"+","+constant2+", 0"
+		newArchive.puts captureTime+","+constant1+","+appYear+","+"Recommended for a scholarship"+","+constant2+", 0"
       ensure
         newArchive.close unless newArchive.nil?
       end
