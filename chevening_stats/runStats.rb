@@ -3,6 +3,7 @@ require 'rubygems'
 require 'csv'
 require 'time'
 require 'date'
+require 'fileutils'
 
 now = Date.today
 monday = now - (now.wday - 1) % 7
@@ -10,10 +11,22 @@ monday = now - (now.wday - 1) % 7
 dateLabel = Time.now.strftime("%Y%m%d")
 captureTime = monday.strftime('%Y-%m-%d') + "T00:00:00Z"
 constant1 = ENV["CHEVENING_CONSTANT1"] || "week"
-appYear = ENV["CHEVENING_APP_YEAR"] || "2016"
+appYear = ENV["CHEVENING_APP_YEAR"] || "2015"
 constant2 = ENV["CHEVENING_CONSTANT2"] || "digital"
 
 begin
+    directoryName = appYear.to_i-1
+    if File.exists?(directoryName.to_s)
+        #Do nothing
+    else
+        begin
+            Dir.mkdir(directoryName.to_s)
+            FileUtils.mv Dir.glob('*.csv'), './'+directoryName.to_s+'/'
+            FileUtils.mv './'+directoryName.to_s+'/configStats.csv', './configStats.csv'
+            FileUtils.mv Dir.glob('*.json'), './'+directoryName.to_s+'/'
+        end
+    end
+
     if File::file?('archiveMergeCapture.csv')
       File.rename('archiveMergeCapture.csv', 'archiveMergeCapture_'+dateLabel+'.csv')
     else

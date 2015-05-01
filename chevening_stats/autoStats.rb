@@ -11,7 +11,7 @@ now = Date.today
 monday = now - (now.wday - 1) % 7
 
 constant1 = ENV["CHEVENING_CONSTANT1"] || "week"
-appYear = ENV["CHEVENING_APP_YEAR"] || "2016"
+appYear = ENV["CHEVENING_APP_YEAR"] || "2015"
 constant2 = ENV["CHEVENING_CONSTANT2"] || "digital"
 dateLabel = Time.now.strftime("%Y%m%d")
 

@@ -8,7 +8,7 @@ monday = now - (now.wday - 1) % 7
 
 captureTime = monday.strftime('%Y-%m-%d') + "T00:00:00Z"
 constant1 = ENV["CHEVENING_CONSTANT1"] || "week"
-appYear = ENV["CHEVENING_APP_YEAR"] || "2016"
+appYear = ENV["CHEVENING_APP_YEAR"] || "2015"
 constant2 = ENV["CHEVENING_CONSTANT2"] || "digital"
 eligible_stats = []
 ineligible_stats = []
