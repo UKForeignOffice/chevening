@@ -33,7 +33,17 @@ CSV.open("finalStats.csv", "w", headers:true) do |csv|# open and write header ro
 end
 #calculate weekly data by subtracting data at index 0 from index 1
 CSV.foreach('compareData.csv', converters: :numeric) do |row|
-	 weekly_total << row[0] - row[1]# add new weekly total to variable
+	if row[0] > row[1]
+	 weekly_total << row[0] - row[1] # add new weekly total to variable
+	elsif row[0] < row[1]
+		weekly_total << row[0] - row[0] # weekly total will be 0
+	else row[0] == row[1]
+		weekly_total << row[0] - row[1] # weekly total will be 0
+	end
+	lineNumber = $. - 1
+	oldTotal = row[1].to_i
+	differenceToAdd = weekly_total[lineNumber].to_i
+	col_keyStats << oldTotal + differenceToAdd # the stats shouldn't decrease so we take the old values and add the weekly total (which is always above 0)
  end
 
 #retrieve stats from original document 
@@ -42,7 +52,6 @@ CSV.foreach("mergeCapture.csv") {|row| col_constant1 << row[1]}
 CSV.foreach("mergeCapture.csv") {|row| col_appYear << row[2]}
 CSV.foreach("mergeCapture.csv") {|row| col_statsDesc << row[3]}
 CSV.foreach("mergeCapture.csv") {|row| col_constant2 << row[4]}
-CSV.foreach("mergeCapture.csv") {|row| col_keyStats << row[5]}
 CSV.foreach("mergeCapture.csv") {|row| col_id << Base64.encode64(row[0]+row[1]+row[2]+row[3]+row[4])}
 
  #zip arrays to read data across as csv and append new weekly data stats
@@ -54,7 +63,7 @@ CSV.foreach("mergeCapture.csv") {|row| col_id << Base64.encode64(row[0]+row[1]+r
 						 col_appYear+","+
 						 col_statsDesc+","+
 						 col_constant2+","+
-						 col_keyStats+","+
+						 col_keyStats.to_s+","+
 						 weekly_total.to_s+","+
 						 col_id.to_s.gsub!(/\s+/, "")
 

@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'fileutils'
 
 username = ENV["CHEVENING_USERNAME"] || "Username"
 password = ENV["CHEVENING_PASSWORD"] || "Password"
@@ -24,6 +25,17 @@ applicationReportFile = ENV["CHEVENING_APPLICATION_FILE"] || "ApplicationReport"
 preScreeningReportFile = ENV["CHEVENING_PRE_SCREENING_FILE"] || "PreScreeningReport"
 outputFileExtension = ENV["CHEVENING_OUTPUT_EXTENSION"] || ".html"
 dateLabel = Time.now.strftime("%Y%m%d")
+appYear = ENV["CHEVENING_APP_YEAR"] || "2015"
+
+directoryName = appYear.to_i-1
+    if File.exists?(directoryName.to_s)
+        #Do nothing
+    else
+        begin
+            Dir.mkdir(directoryName.to_s)
+            FileUtils.mv Dir.glob('*.html'), './'+directoryName.to_s+'/'
+        end
+    end
 
   describe "Capture Reports", :js => true, :type => :feature  do
   
@@ -62,10 +74,11 @@ dateLabel = Time.now.strftime("%Y%m%d")
       find('td', :text => applicationReportLink).click
       click_on(viewButton)
       
-
+      
       page.should have_content(applicationReportContent1)
       page.should have_content(applicationReportContent2)
       page.should have_content(applicationReportContent3)
+    
       
       # page.save_page overwrites the existing file
       page.save_page(applicationReportFile + dateLabel + outputFileExtension)
