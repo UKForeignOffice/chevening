@@ -28,14 +28,14 @@ data6 = File.open('autoCapture.csv')
 data7 = File.open('autoCapture.csv')
 data8 = File.open('autoCapture.csv')
 
-stat1 = ENV["CHEVENING_STAT1"] || "Passed pre-screen"
-stat2 = ENV["CHEVENING_STAT2"] || "Failed pre-screen"
-stat3 = ENV["CHEVENING_STAT3"] || "Eligible"
-stat4 = ENV["CHEVENING_STAT4"] || "Ineligible"
-stat5 = ENV["CHEVENING_STAT5"] || "Withdrawn"
-stat6 = ENV["CHEVENING_STAT5"] || "Invited to interview"
-stat7 = ENV["CHEVENING_STAT5"] || "Interview complete"
-stat8 = ENV["CHEVENING_STAT5"] || "Recommended for a scholarship"
+stat1 = ENV["CHEVENING_STAT1"] || "passed pre-screen questions"
+stat2 = ENV["CHEVENING_STAT2"] || "failed pre-screen questions"
+stat3 = ENV["CHEVENING_STAT3"] || "eligible applications"
+stat4 = ENV["CHEVENING_STAT4"] || "ineligible applications"
+stat5 = ENV["CHEVENING_STAT5"] || "withdrawn applications"
+stat6 = ENV["CHEVENING_STAT5"] || "invited to interview"
+stat7 = ENV["CHEVENING_STAT5"] || "interview complete"
+stat8 = ENV["CHEVENING_STAT5"] || "recommended for a scholarship"
 
 columnHeader4 = ENV["CHEVENING_OUTPUT_COLUMN4"] || "Description"
 columnHeader6 = ENV["CHEVENING_OUTPUT_COLUMN6"] || "Cumulative Stats"

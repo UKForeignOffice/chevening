@@ -15,10 +15,10 @@ col_id = []
 
 columnHeader1 = ENV["CHEVENING_OUTPUT_COLUMN1"] || "_timestamp"
 columnHeader2 = ENV["CHEVENING_OUTPUT_COLUMN2"] || "period"
-columnHeader3 = ENV["CHEVENING_OUTPUT_COLUMN3"] || "application_year"
-columnHeader4 = ENV["CHEVENING_OUTPUT_COLUMN4"] || "description"
+columnHeader3 = ENV["CHEVENING_OUTPUT_COLUMN3"] || "chevening_year"
+columnHeader4 = ENV["CHEVENING_OUTPUT_COLUMN4"] || "stage"
 columnHeader5 = ENV["CHEVENING_OUTPUT_COLUMN5"] || "channel"
-columnHeader6 = ENV["CHEVENING_OUTPUT_COLUMN6"] || "cumulative_total"
+columnHeader6 = ENV["CHEVENING_OUTPUT_COLUMN6"] || "cumulative"
 columnHeader7 = ENV["CHEVENING_OUTPUT_COLUMN7"] || "count"
 columnHeader8 = ENV["CHEVENING_OUTPUT_COLUMN8"] || "_id"
 
