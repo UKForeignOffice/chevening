@@ -33,9 +33,10 @@ stat2 = ENV["CHEVENING_STAT2"] || "failed pre-screen questions"
 stat3 = ENV["CHEVENING_STAT3"] || "eligible applications"
 stat4 = ENV["CHEVENING_STAT4"] || "ineligible applications"
 stat5 = ENV["CHEVENING_STAT5"] || "withdrawn applications"
-stat6 = ENV["CHEVENING_STAT5"] || "invited to interview"
-stat7 = ENV["CHEVENING_STAT5"] || "interview complete"
-stat8 = ENV["CHEVENING_STAT5"] || "recommended for a scholarship"
+stat6 = ENV["CHEVENING_STAT6"] || "invited to interview"
+stat7 = ENV["CHEVENING_STAT7"] || "interview complete"
+stat8 = ENV["CHEVENING_STAT8"] || "recommended for a scholarship"
+stat9 = ENV["CHEVENING_STAT9"] || "total"
 
 columnHeader4 = ENV["CHEVENING_OUTPUT_COLUMN4"] || "Description"
 columnHeader6 = ENV["CHEVENING_OUTPUT_COLUMN6"] || "Cumulative Stats"
@@ -115,6 +116,8 @@ begin
     end
   end
   recommended_for_scholarship = recommended_for_scholarship.map(&:to_i).inject(:+)
+
+  total=eligible.to_i+ineligible.to_i+withdrawn.to_i
   
 #append data rows to merge capture
 
@@ -128,6 +131,7 @@ begin
   mergeCapture.puts captureTime+","+constant1+","+appYear+","+stat6+","+constant2+","+invited_to_interview.to_i.to_s
   mergeCapture.puts captureTime+","+constant1+","+appYear+","+stat7+","+constant2+","+interview_complete.to_i.to_s
   mergeCapture.puts captureTime+","+constant1+","+appYear+","+stat8+","+constant2+","+recommended_for_scholarship.to_i.to_s
+  mergeCapture.puts captureTime+","+constant1+","+appYear+","+stat9+","+constant2+","+total.to_i.to_s
 rescue
   archiveFile = 'archiveMergeCapture.csv'
 

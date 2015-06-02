@@ -40,10 +40,30 @@ begin
 		newArchive.puts captureTime+","+constant1+","+appYear+","+"Invited to interview"+","+constant2+", 0"
 		newArchive.puts captureTime+","+constant1+","+appYear+","+"Interview complete"+","+constant2+", 0"
 		newArchive.puts captureTime+","+constant1+","+appYear+","+"Recommended for a scholarship"+","+constant2+", 0"
+        newArchive.puts captureTime+","+constant1+","+appYear+","+"Total"+","+constant2+", 0"
       ensure
         newArchive.close unless newArchive.nil?
       end
     end
+
+    if File::file?('totalStats.csv')
+    else
+      begin
+        newArchive =File.open('totalStats.csv', 'a')
+        newArchive.puts "0"
+        newArchive.puts "0"
+        newArchive.puts "0"
+        newArchive.puts "0"
+        newArchive.puts "0"
+        newArchive.puts "0"
+        newArchive.puts "0"
+        newArchive.puts "0"
+        newArchive.puts "0"
+      ensure
+        newArchive.close unless newArchive.nil?
+      end
+    end
+
     load "autoStats.rb"
     load "mergeData.rb"
     load "compare_stats.rb"
@@ -55,6 +75,7 @@ begin
 #Delete files for testing file generation
 File.delete("./autoCapture.csv")
 File.delete("./compareData.csv")
+File.delete("./archiveTotalStats.csv")
 File.rename('finalStats.csv.json', 'finalStats_'+dateLabel+'.json')
 File.rename('finalStats.csv', 'finalStats_'+dateLabel+'.csv')
 end

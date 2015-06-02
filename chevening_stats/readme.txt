@@ -32,4 +32,4 @@ configStats.csv may be amended using Excel to alter descriptions included in eac
 archiveMergeCapture.csv holds the latest previous cumulative stats, it is renamed to containa date stamp before being overwritten by the mergeCapture.csv file.
 mergeCapture.csv holds the cumulative stats for the current extraction.
 
-NOTE: If you need to correct a previous stat value prior to running the script, make the changes in the mergeCapture.csv file.
+NOTE: If you need to correct a previous stat value prior to running the script, make the changes in the totalStats.csv file and also each of the reports stored in /report_capture

@@ -9,8 +9,8 @@ col_constant1 = []
 col_constant2 = []
 col_appYear = []
 col_statsDesc = []
-col_keyStats =[]
 weekly_total = []
+cumulative_total = []
 col_id = []
 
 columnHeader1 = ENV["CHEVENING_OUTPUT_COLUMN1"] || "_timestamp"
@@ -31,19 +31,33 @@ CSV.open("finalStats.csv", "w", headers:true) do |csv|# open and write header ro
 	csv << [columnHeader1,columnHeader2,columnHeader3,columnHeader4,columnHeader5,columnHeader6,columnHeader7,columnHeader8]
 
 end
+
 #calculate weekly data by subtracting data at index 0 from index 1
 CSV.foreach('compareData.csv', converters: :numeric) do |row|
 	if row[0] > row[1]
 	 weekly_total << row[0] - row[1] # add new weekly total to variable
+	 cumulative_total << row[0] # this will be the new cumulative total 
 	elsif row[0] < row[1]
 		weekly_total << row[0] - row[0] # weekly total will be 0
+		cumulative_total << row[1] # we just want to keep the old total as the new value is less
 	else row[0] == row[1]
 		weekly_total << row[0] - row[1] # weekly total will be 0
+		cumulative_total << row[1]
 	end
-	lineNumber = $. - 1
-	oldTotal = row[1].to_i
-	differenceToAdd = weekly_total[lineNumber].to_i
-	col_keyStats << oldTotal + differenceToAdd # the stats shouldn't decrease so we take the old values and add the weekly total (which is always above 0)
+	
+ end
+
+ if File::file?('totalStats.csv')
+      File.rename('totalStats.csv', 'archiveTotalStats.csv')
+      begin
+      	newFile =File.open('totalStats.csv', 'a')
+ 			cumulative_total.each do |i|
+ 				newFile.puts i
+ 			end
+ 	  ensure
+        newFile.close unless newFile.nil?
+      end
+ else
  end
 
 #retrieve stats from original document 
@@ -55,7 +69,7 @@ CSV.foreach("mergeCapture.csv") {|row| col_constant2 << row[4]}
 CSV.foreach("mergeCapture.csv") {|row| col_id << Base64.encode64(row[0]+row[1]+row[2]+row[3]+row[4])}
 
  #zip arrays to read data across as csv and append new weekly data stats
-   col_date.zip(col_constant1, col_appYear, col_statsDesc, col_constant2, col_keyStats, weekly_total, col_id).each do |col_date, col_constant1, col_appYear, col_statsDesc, col_constant2, col_keyStats, weekly_total, col_id|
+   col_date.zip(col_constant1, col_appYear, col_statsDesc, col_constant2, cumulative_total, weekly_total, col_id).each do |col_date, col_constant1, col_appYear, col_statsDesc, col_constant2, cumulative_total, weekly_total, col_id|
 	 
 	 
 	 finalStatsFile.puts col_date+","+
@@ -63,7 +77,7 @@ CSV.foreach("mergeCapture.csv") {|row| col_id << Base64.encode64(row[0]+row[1]+r
 						 col_appYear+","+
 						 col_statsDesc+","+
 						 col_constant2+","+
-						 col_keyStats.to_s+","+
+						 cumulative_total.to_s+","+
 						 weekly_total.to_s+","+
 						 col_id.to_s.gsub!(/\s+/, "")
 
