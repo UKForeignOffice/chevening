@@ -1,7 +1,7 @@
 eligible,ineligible,withdrawn,pass_prescreen,fail_prescreen,invited_to_interview,interview_complete,recommended_for_scholarship
-Application eligible  awaiting references,Reject - not enough work experience,Application withdrawn,"Application started, not submitted",Pre-screen failed,Post shortlisted to interview,interview complete,Post recommended
-Application eligible - 1 reference returned,Reject - UK citizen/employee,,,,Invite to interview,,
-Application eligible - 2 references returned,Reject - course duplication,,,,Interview scheduled,,
+Awaiting RC,Reject - not enough work experience,Application withdrawn,"Application started, not submitted",Pre-screen failed,Post shortlisted to interview,interview complete,Post recommended
+,Reject - UK citizen/employee,,,,Invite to interview,,
+,Reject - course duplication,,,,Interview scheduled,,
 ,Reject  Dual National/UK funding,,,,,,
 ,Reject - return to home country,,,,,,
 ,Application pending reject  work experience,,,,,,
