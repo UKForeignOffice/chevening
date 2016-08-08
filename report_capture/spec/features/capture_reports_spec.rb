@@ -38,6 +38,8 @@ directoryName = appYear.to_i-1
     end
 
   describe "Capture Reports", :js => true, :type => :feature  do
+
+    headless = Headless.new(display: 99, autopick: true, reuse: false, destroy_at_exit: true).start
   
     it 'Go to the login page, log in, view reports, choose report, view report and save the page' do
     
