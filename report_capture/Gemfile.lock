@@ -26,6 +26,7 @@ GEM
     domain_name (0.5.23)
       unf (>= 0.0.5, < 1.0.0)
     ffi (1.9.8)
+    headless (2.2.3)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     json (2.0.2)
@@ -88,6 +89,7 @@ DEPENDENCIES
   capybara-mechanize
   capybara-screenshot (~> 0.3.16)
   capybara-webkit
+  headless
   poltergeist (~> 1.5.0)
   rspec (~> 2.14.1)
   selenium-webdriver
