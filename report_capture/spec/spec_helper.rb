@@ -12,7 +12,7 @@ RSpec.configure do |config|
   config.order = 'random'
 
   # Use Poltergeist by default - Runs Javascript and faster than Selenium-webdriver
-  Capybara.javascript_driver = :poltergeist
+  Capybara.javascript_driver = :webkit
 Capybara.configure do |config|
   config.run_server = false
   config.app_host   = appHostUrl
