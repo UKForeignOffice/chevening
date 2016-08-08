@@ -22,12 +22,10 @@ Capybara.configure do |config|
 end
 
 Capybara::Webkit.configure do |config|
-# Enable debug mode. Prints a log of everything the driver is doing.
-config.debug = true
-# Allow pages to make requests to any URL without issuing a warning.
-config.allow_unknown_urls
-# Allow a specifc domain without issuing a warning.
-config.allow_url("chevening.tal.net")
+  # Enable debug mode. Prints a log of everything the driver is doing.
+  config.debug = true
+  # Allow pages to make requests to any URL without issuing a warning.
+  config.allow_unknown_urls
 end
 
 Capybara.register_driver(:poltergeist) do |app|
