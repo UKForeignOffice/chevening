@@ -1,5 +1,7 @@
 require 'spec_helper'
 require 'fileutils'
+require 'headless'
+
 
 username = ENV["CHEVENING_USERNAME"] || "Username"
 password = ENV["CHEVENING_PASSWORD"] || "Password"
@@ -38,8 +40,13 @@ directoryName = appYear.to_i-1
     end
 
   describe "Capture Reports", :js => true, :type => :feature  do
+
+  headless = Headless.new(display: 99, autopick: true, reuse: false, destroy_at_exit: true).start
   
     it 'Go to the login page, log in, view reports, choose report, view report and save the page' do
+
+
+
     
       visit ''
       
@@ -48,30 +55,29 @@ directoryName = appYear.to_i-1
       page.should have_content(userLabel)
       page.should have_content(passwordLabel)
       page.should have_content(loginButton)
-      
-      # page.save_page overwrites the existing file
-      #page.save_page('login.html')
-      
       fill_in 'user', :with => username
       fill_in 'password', :with => password
       click_on loginButton
-      
+      puts "Successfully logged in"
+
+
       page.should have_content(statisticsLink)
-      # page.save_page overwrites the existing file
-      #page.save_page('dashboard.html')
-      
       if not (page.has_content?(viewAllReportsLink))
+        puts "Clicking on statistics link"
         click_link statisticsLink
       end
-      
+
+
       page.should have_content(viewAllReportsLink)
+      puts "Clicking on view all reports link"
       click_link viewAllReportsLink
-      
-      page.should have_content(applicationReportLink)
-      # page.save_page overwrites the existing file
-      # page.save_page('reportList.html')
-      
+
+
+      puts "Clicking on application report"
       find('td', :text => applicationReportLink).click
+
+
+      puts "Clicking on view button"
       click_on(viewButton)
       
       
@@ -80,14 +86,18 @@ directoryName = appYear.to_i-1
       page.should have_content(applicationReportContent3)
     
       
-      # page.save_page overwrites the existing file
+      puts "Saving application report"
       page.save_page(applicationReportFile + dateLabel + outputFileExtension)
-      
+
+
+      puts "Clicking on view all reports link"
       click_link viewAllReportsLink
-      
-      page.should have_content(preScreeningReportLink)
-      
+
+
+      puts "Clicking on pre-screening report"
       find('td', :text => preScreeningReportLink).click
+
+      puts "Clicking on view button"
       click_on(viewButton)
       
 
@@ -95,7 +105,7 @@ directoryName = appYear.to_i-1
       page.should have_content(preScreeningReportContent2)
       page.should have_content(preScreeningReportContent3)
       
-      # page.save_page overwrites the existing file
+      puts "Saving pre-screening report"
       page.save_page(preScreeningReportFile + dateLabel + outputFileExtension)
     end
   end

@@ -12,23 +12,17 @@ RSpec.configure do |config|
   config.order = 'random'
 
   # Use Poltergeist by default - Runs Javascript and faster than Selenium-webdriver
-  Capybara.javascript_driver = :poltergeist
+  #Capybara.javascript_driver = :poltergeist
 Capybara.configure do |config|
+Capybara.default_wait_time = 10
   config.run_server = false
   config.app_host   = appHostUrl
 end
 
-Capybara.register_driver(:poltergeist) do |app|
-    Capybara::Poltergeist::Driver.new app,
-      js_errors: false,
-      timeout: 300,
-      logger: nil,
-      phantomjs_options:
-      [
-        '--load-images=no',
-        '--ignore-ssl-errors=yes'
-      ]
-  end
-  # Uncomment this if you want to watch the tests
-  # Capybara.javascript_driver = :selenium
+Capybara.register_driver :selenium do |app|
+  require 'selenium/webdriver'
+  Selenium::WebDriver::Firefox::Binary.path = "/opt/firefox/firefox"
+  Capybara::Selenium::Driver.new(app, :browser => :firefox)
+end
+
 end
