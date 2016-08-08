@@ -2,6 +2,7 @@ require 'capybara/rspec'
 require 'capybara/poltergeist'
 require 'capybara-screenshot'
 require 'capybara-screenshot/rspec'
+require 'capybara-webkit'
 
 appHostUrl = ENV["CHEVENING_APP_HOST_URL"] || "https://chevening.tal.net/"
 
