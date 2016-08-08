@@ -13,11 +13,21 @@ RSpec.configure do |config|
   config.filter_run :focus
   config.order = 'random'
 
-  # Use Poltergeist by default - Runs Javascript and faster than Selenium-webdriver
-  Capybara.javascript_driver = :webkit
+# Use Poltergeist by default - Runs Javascript and faster than Selenium-webdriver
+Capybara.javascript_driver = :webkit
+
 Capybara.configure do |config|
   config.run_server = false
   config.app_host   = appHostUrl
+end
+
+Capybara::Webkit.configure do |config|
+# Enable debug mode. Prints a log of everything the driver is doing.
+config.debug = false
+# Allow pages to make requests to any URL without issuing a warning.
+config.allow_unknown_urls
+# Allow a specifc domain without issuing a warning.
+config.allow_url("chevening.tal.net")
 end
 
 Capybara.register_driver(:poltergeist) do |app|
