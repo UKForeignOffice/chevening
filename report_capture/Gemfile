@@ -4,4 +4,5 @@ gem "rspec", "~> 2.14.1"
 gem "capybara-screenshot", "~> 0.3.16"
 gem "capybara-mechanize"
 gem "poltergeist", "~> 1.5.0"
-gem "selenium-webdriver"
+gem "selenium-webdriver", '2.53.4'
+gem "headless"
